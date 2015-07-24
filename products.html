@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>产品列表</title>
+	<script src="https://code.jquery.com/jquery-2.0.3.js"></script>
+	<script type="text/javascript" src="lib/jsviews.js"></script>
+	<script src="products.config.js"></script>	
+  	<link href="products.css" rel="stylesheet"/>
+</head>
+<body>
+	<div class="container">
+		<ul id="productList"></ul>
+
+	</div>
+	<script id="listTmpl" type="text/x-jsrender">
+	  {^{for products}}
+	  	<li>
+			{^{:name}}
+	  	</li>
+
+	  {{/for}}
+	</script>
+	<script type="text/javascript">
+		var template = $.templates("#listTmpl");
+		template.link("#productList", {products: data.list});
+	</script>
+</body>
+</html>
