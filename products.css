@@ -1,11 +1,41 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	
+}
+p {
+	margin: 0;
+}
+a {
+	text-decoration: none;
+}
 .container {
-	width: 450px;
+	width: 100%;
 	margin: 0 auto; 
 	background-color: #e1e1e1;
-	overflow: hidden;
+	overflow: scroll;
+	padding-bottom: 30px;
 }
-
-ui,li {
+.header {
+	padding: 5px 0 5px 0;
+}
+.header label {
+	font-size: 12px;
+	margin: 12px 0 0 5px;
+}
+.header a {
+	padding: 2px 5px;
+	display: inline-block;
+	background-color: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#f5f5f5));
+	background-color: -moz-gradient(linear,left top,left bottom,from(#fff),to(#f5f5f5));
+	background-color: gradient(linear,left top,left bottom,from(#fff),to(#f5f5f5));
+	box-shadow: 0 0 1px 0 #333;
+	text-align: center;
+}
+.header a:active {
+	outline: 5px auto rgb(91, 157, 217)
+}
+ul,li {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -16,4 +46,124 @@ ul {
 li {
 	float: left;
 	width: 33%;
+}
+.item {
+	position: relative;
+	width: 90%;
+	margin: 0 0 10px 5%;
+	height: auto;
+	
+}
+.item img {
+	width: 100%;
+	height: 90px;
+}
+.item .item-mask {
+	position: relative;
+	overflow: hidden;
+	height: 30px;
+	font-size: 12px;
+	background-color: rgba(0,0,0, 0.4);
+	margin-top: -30px;
+	line-height: 30px;
+}
+.item .item-comment {
+	font-size: 8px;
+}
+.item .item-buy {
+	width: 100%;
+	display: block;
+	background-color: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#f5f5f5));
+	box-shadow: 0 0 1px 0 #333;
+	text-align: center;
+}
+.item-buy:active {
+	outline: 5px auto rgb(91, 157, 217)
+}
+.chart {
+	background: rgba(0,0,0, 0.6);
+	height: 30px;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+}
+.chart.active {
+	height: auto;
+}
+.chart.active .up-chart {
+	display: block;
+}
+.up-chart {
+	overflow: hidden;
+	display: none;
+	background-color: rgba(255,255,255, 0.7);
+	width: 100%;
+}
+.up-chart .c-item {
+	overflow: hidden;
+	width: 100%;
+	background-color: rgba(250,250,250, 0.7);
+	margin-bottom: 2px;
+}
+.up-chart .c-item p {
+	float: left;
+	height: 30px;
+	line-height: 30px;
+}
+.up-chart .c-item .name {
+	margin-left: 12px;
+	width: 120px;
+}
+.up-chart .c-item .price {
+	color: #f00;
+	width: 80px;
+	min-height: 10px;
+}
+.up-chart .c-item .number {
+	width: 20px;
+	min-height: 10px;
+}
+.up-chart .c-item .decrease {
+	border: 1px solid #e1e1e1;
+	width: 30px;
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+	margin-right: 5px;
+}
+.up-chart .c-item .decrease:active {
+	border: 1px solid rgb(91, 157, 217);
+}
+.up-chart .c-item .increase {
+	border: 1px solid #e1e1e1;
+	width: 30px;
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	margin-left: 5px;
+}
+.up-chart .c-item .increase:active {
+	border: 1px solid rgb(91, 157, 217);
+}
+
+
+.base-chart {
+	overflow: hidden;
+}
+.base-chart p{
+	color: #fff;
+	font-size: 15px;
+	margin-top: 0;
+	float: left;
+	line-height: 30px;
+}
+.base-chart a{
+	display: block;
+	text-decoration: none;
+	text-align: center;
+	float: right;
+	height: 30px;
+	width: 60px;
+	line-height: 30px;
+	background-color: #ff2d4b;
 }
