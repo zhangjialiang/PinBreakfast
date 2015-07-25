@@ -4,27 +4,182 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width">
 	<title>产品列表</title>
-	<script src="https://code.jquery.com/jquery-2.0.3.js"></script>
+	<script src="lib/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript" src="lib/jsviews.js"></script>
 	<script src="products.config.js"></script>	
   	<link href="products.css" rel="stylesheet"/>
+  	<script>
+  		var productList2 = data.list;
+		var choose = {};
+		choose.calc = {
+			'num': 0,
+			'price': 0
+		}
+		choose.charts = data.charts;
+		var calcPro = function () {
+			choose.calc.num = 0;
+			choose.calc.price = 0;
+			for (var i = 0; i < choose.charts.length; i++) {
+				var tem = choose.charts[i];
+				tem.num = tem.num ? tem.num : 1;
+				tem.price = tem.price ? tem.price : 10;			
+				$.observable(choose.calc).setProperty("num", choose.calc.num += tem.num);
+				$.observable(choose.charts[i]).setProperty("totalPrice", tem.num * tem.price);
+				$.observable(choose.calc).setProperty("price", choose.calc.price += tem.num * tem.price);			
+			} 
+			
+			// setTimeout(function () {addEvent()},0)
+			
+			$.observable(choose.charts).refresh(choose.charts);
+			$(".chartResult").text('购物车有'+choose.calc.num+'件商品，共计'+ choose.calc.price+'￥');
+			//$.observable(choose.calc).setProperty("num", temp.calc.num);
+		}
+		var getIndex = function (item) {
+			for (var i = 0; i < choose.charts.length; i++) {
+				if (choose.charts[i].name == item.name) {
+					return i;
+				}
+			}
+				return -1;
+		}
+		var add = function (me) {
+			addItem(choose.charts[$(".c-item").index($(me).parent())])
+		}
+		var reduce = function (me) {
+			reduceItem(choose.charts[$(".c-item").index($(me).parent())])
+		}
+		var addItem = function (item) {
+			var index = getIndex(item);
+			if (index >= 0) {
+				choose.charts[index].num++;				
+			}
+			else {
+				choose.charts.push(item);
+			}
+			calcPro();
+		}
+		var reduceItem = function (item) {
+			var index = getIndex(item);
+			if( choose.charts[index].num == 1) {
+				choose.charts.splice(index, 1);
+			}
+			else {
+				choose.charts[index].num--;
+			}
+			calcPro();
+		}
+		var filter = function () {
+			var value = $("#b-type").val();
+			var productList2 = [];
+			for (var i = 0; i < data.list.length; i++) {
+				if(data.list[i].name.indexOf(value) >= 1) {
+					productList2.push(data.list[i]);
+				}
+			}
+			console.log(productList2);
+			$.observable(productList2).refresh(productList2);
+		}
+	</script>
 </head>
-<body>
+<body >
 	<div class="container">
+		<div class="header">
+		<label for="input1">早餐种类</label>
+		<input id="b-type" placeholder="面包"/></br>
+		<label for="input1">店家名称</label>
+		<input placeholder="大叔早餐铺"/>
+		<a onclick="filter(this)">搜索</a>
+	</div>
 		<ul id="productList"></ul>
 
 	</div>
+	<div class="chart" id="myChart">
+
+	</div>
+
+	<!--购物车列表模板 -->
 	<script id="listTmpl" type="text/x-jsrender">
 	  {^{for products}}
 	  	<li>
-			{^{:name}}
+			<div class="item">
+				<img data-link="src{:src}"/>
+				<div class="item-mask">{{:name}}&nbsp;&nbsp;&nbsp;{{:price}}￥</div>
+				<a class="item-comment" href="{{:href}}">{{:comment}}</a>
+				<a class="item-buy">订购</a>
+			</div>
 	  	</li>
 
 	  {{/for}}
 	</script>
-	<script type="text/javascript">
-		var template = $.templates("#listTmpl");
-		template.link("#productList", {products: data.list});
+
+	<!--购物车模板 -->
+	<script id="chartTmpl" type="text/x-jsrender">
+		<div class="up-chart">
+		  {^{for charts}}
+		  	<li class="c-item">
+					<p class="name">{{:name}}</p>
+					<p class="price">总价:{{:totalPrice}}￥</p>
+					<p class="decrease" onclick="reduce(this)">-</p>
+					<p class="number">{{:num}}</p>
+					<p class="increase" onclick="add(this)">+</p>
+		  	</li>
+		  {{/for}}
+	  </div>
+	  <div class="base-chart" onclick="showChart(this)">
+	  	<p class="chartResult">购物车有 {{:calc.num}} 件商品，共计 {{:calc.price}}￥</p>
+	  	<a>选完了</a>
+	  </div>
 	</script>
+	<script type="text/javascript">
+		(function () {
+			calcPro();
+		})();
+		var template = $.templates("#listTmpl");
+		template.link("#productList", {products: productList2});
+		var template2 = $.templates("#chartTmpl");
+		template2.link("#myChart", {charts: choose.charts,calc: choose.calc});
+		function showChart(item) {
+			$(this).parent().toggleClass('active');
+		}
+		function addEvent () {
+			$(".base-chart").on('click', function () {
+				$(this).parent().toggleClass('active');
+			});
+			$(".item").on('click', function () {
+				var index = $('.item').index($(this));
+				addItem(productList2[index]);
+				//$.observable(choose.charts).insert({name: "name"});
+			});
+			$(".increase").on('click', function () {
+
+				addItem(choose.charts[$(".c-item").index($(this).parent())]);
+			});
+			$(".c-item").on('click', ".decrease", function () {
+				reduceItem($.view(this).data);
+			});
+		}
+		setTimeout(function () {
+			addEvent();
+		},0)
+		//addEvent();
+		//$.observable(people).insert({name: "name" + counter++});
+		//$.observable(dataItem).setProperty("name", dataItem.name + "*");
+		//$.observable(people).remove(index);
+
+		//$("#addBtn").on("click", function(){
+//   $.observable(people).insert({name: "name" + counter++});
+// })
+
+// $("#result")
+//   .on("click", ".change", function(){
+//     var dataItem = $.view(this).data;
+//     $.observable(dataItem).setProperty("name", dataItem.name + "*");
+//   })
+//   .on("click", ".remove", function(){
+//     var index = $.view(this).index;
+//     $.observable(people).remove(index);
+//   });
+	</script>
+	
 </body>
 </html>
