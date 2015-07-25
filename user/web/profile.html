@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+  ~ Copyright (C) 2015 Baidu, Inc. All Rights Reserved.
+  -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="profile.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+<body>
+<div id="result"></div>
+<script id="tmpl" type="text/x-jsrender">
+<div class="header">
+<p class="title">个人中心</p>
+</div>
+<div class="user-detail">
+    <div class='user-info'>
+    <image class='user-img' src="{{:user.avatar}}"></image>
+    <span class='user-name'>{{:user.name}}</span>
+    </div>
+    <div class="user-record">
+    <div>余额:<strong>{{:user.balance}}</strong>元</div>
+    <div>成功送餐次数:<strong>{{:user.success}}</strong>次</div>
+    <div>计划中的早餐:<strong>{{:user.left}}</strong>次</div>
+    </div>
+    <br>
+</div>
+    <div class='block'>
+        <a class='change' href="{{:links.changeNext}}">变更</a><div class='block-title'>下一次早餐</div>
+        <p class="time">
+        {{:next.time}}送至</p>
+        <p class="to">
+        {{:next.to}}</p>
+        <ul class='breakfast-list'>
+            {{for next.items tmpl="#itemTmpl"}}
+            {{/for}}
+        </ul>
+        <!--<a href="#">和其他{{:next.extra}}份商品</a>-->
+        <span class='total'>总计{{:next.price}}元</span>
+    </div>
+    <div class='block'>
+        <div class='block-title'>已送达的早餐</div>
+        <ul class='normal-list'>
+            {{for history}}
+                <li class='part'>
+                <p class="time">
+                    {{:time}}送至</p>
+                <p class="to">
+                    {{:to}}
+                </p>
+                    <ul class='breakfast-list'>
+                        {{for items tmpl="#itemTmpl"}}
+                        {{/for}}
+                    </ul>
+                    <!--<a href="#">和其他{{:extra}}份商品</a>-->
+                    <span class='total'>总计{{:price}}元</span>
+                </li>
+            {{/for}}
+        <ul>
+    </div>
+    <!--<div><button>更早之前的送餐记录</button</div>-->
+</script>
+
+<script id="itemTmpl" type="text/x-jsrender">
+    <li>
+    <a href="#{{:id}}"><img src="{{:image}}" width="100px"></img></a>
+    <div class="describe">
+    <span>{{:name}}</span>
+    <span>￥{{:price}}*{{:amount}}<span>
+    </div>
+    </li>
+</script>
+<script src="script/jquery.js"></script>
+<script src="script/jsrender.js"></script>
+<script src="script/profile.js"></script>
+</body>
+</html>

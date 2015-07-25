@@ -1,0 +1,148 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: "黑体";
+    color: rgba(0, 0, 0, 0.72);
+}
+body{
+    background-color: #eff0f2;
+}
+ul li{
+    list-style: none;
+}
+.header{
+    width: 100%;
+    font-size: 22px;
+    text-align: center;
+    padding: 15px 0;
+    background-color: #FF2C4C;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+}
+.header .title{
+    color:white;
+}
+
+.block{
+    background-color:white;
+    margin-top: 17px;
+    padding: 0 4%;
+}
+.user-info{
+    border-image: url("img/border_img.png") 80 90 round;
+    border-bottom-width: 0px;
+    padding: 15px 4%;
+}
+.address{
+    margin-top:5px;
+}
+.block-title, .normal-list li{
+    padding: 13px 0;
+    border-bottom: 1px solid #eff0f2;
+}
+.breakfast-list{
+    padding-bottom: 10px;
+}
+.breakfast-list li{
+    font-size: 14px;
+    margin-top: 14px;
+}
+.block a{
+    text-decoration: none;
+}
+.select-breakfast .name{
+    width: 75%;
+    display: inline-block;
+}
+.num, .price{
+   margin-left:10px;
+}
+.right{
+    float: right;
+    height: 16px;
+    margin-right: 2px;
+}
+.user-info .right{
+    margin-top: 10px;
+}
+.li-title{
+    display: inline-block;
+    width: 70%;
+}
+.day{
+    margin-left: 19%;
+}
+select{
+    width: 25%;
+    margin-left: 3%;
+}
+.footer{
+    font-size: 17px;
+    background-color: #ffffff;
+    border-top: 1px solid #e0e0e0;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+.footer .ok{
+    float: right;
+    border: none;
+    height: 50px;
+    width: 90px;
+    font-size: 17px;
+}
+.footer .total{
+    float: right;
+    line-height: 50px;
+}
+.total-price{
+    float: right;
+    color: #ff2c4c;
+    margin-right: 10px;
+    line-height: 50px;
+}
+button{
+    background-color: #ff2c4c;
+    color:white;
+    outline: none;
+}
+.loading{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0.74);
+    z-index: 1;
+}
+.loading img{
+     position: absolute;
+     top:0;
+     bottom:90px;
+     left:0;
+     right:0;
+     margin:auto;
+ }
+.loading-text{
+    position: absolute;
+    top: 0;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+.entrance{
+    width: 100%;
+    height: 100%;
+
+}
+.pin-breakfast{
+    position: absolute;
+    width: 150px;
+    height: 90px;
+    top: 200px;
+    right: 0;
+}
+/*html,body{*/
+    /*height:100%;*/
+/*}*/

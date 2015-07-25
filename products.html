@@ -15,7 +15,11 @@
 			'num': 0,
 			'price': 0
 		}
-		choose.charts = data.charts;
+		choose.charts = [];
+		if(window.location.hash == 0 )
+			choose.charts = [];
+		else if (window.location.hash == 1)
+			choose.charts = data.charts;
 		var calcPro = function () {
 			choose.calc.num = 0;
 			choose.calc.price = 0;
@@ -69,15 +73,15 @@
 			calcPro();
 		}
 		var filter = function () {
-			var value = $("#b-type").val();
-			var productList2 = [];
+			var value = $("#b-type option:selected").text();
+			var productList3 = [];
 			for (var i = 0; i < data.list.length; i++) {
-				if(data.list[i].name.indexOf(value) >= 1) {
-					productList2.push(data.list[i]);
+				if(data.list[i].name.indexOf(value) > -1) {
+					productList3.push(data.list[i]);
 				}
 			}
-			console.log(productList2);
-			$.observable(productList2).refresh(productList2);
+			console.log(productList3);
+			$.observable(productList2).refresh(productList3);
 		}
 	</script>
 </head>
@@ -85,9 +89,17 @@
 	<div class="container">
 		<div class="header">
 		<label for="input1">早餐种类</label>
-		<input id="b-type" placeholder="面包"/></br>
+		<select id="b-type" placeholder="面包">
+			<option>面包</option>
+			<option>牛奶</option>
+			<option>包子</option>
+		</select>
+		</br>
 		<label for="input1">店家名称</label>
-		<input placeholder="大叔早餐铺"/>
+		<select id="b-type" placeholder="面包">
+			<option>大叔早餐店</option>
+			<option>大妈早餐店</option>
+		</select>
 		<a onclick="filter(this)">搜索</a>
 	</div>
 		<ul id="productList"></ul>
@@ -127,10 +139,14 @@
 	  </div>
 	  <div class="base-chart" onclick="showChart(this)">
 	  	<p class="chartResult">购物车有 {{:calc.num}} 件商品，共计 {{:calc.price}}￥</p>
-	  	<a>选完了</a>
+	  	<a onclick="redirect()">选完了</a>
 	  </div>
 	</script>
 	<script type="text/javascript">
+		function redirect() {
+			var args = window.location.hash.split('=');
+			window.location.href = 'order/createOrder.html'  + args[0] + '=' + (parseInt(args[1], 10) + 1);
+		}
 		(function () {
 			calcPro();
 		})();

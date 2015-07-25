@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <script src="./lib/jquery.js"></script>
+    <script src="./lib/jsrender.js"></script>
+    <script src="orderDetail.js"></script>
+    <link rel="stylesheet" href="createOrder.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+<body>
+
+<div id="result"></div>
+
+<script id="theTmpl" type="text/x-jsrender">
+<div class='order-container'>
+    <div class="loading">
+        <img src="img/loading.gif" alt="" class="loading-img"/>
+        <p class="loading-text"> 定位中...</p>
+    </div>
+    <div class="header">
+        <p class="title">
+            {{if is_add}}
+            新增订单
+            {{else}}
+            编辑订单
+            {{/if}}
+        </p>
+    </div>
+    <div class="block user-info">
+        <img class="right" src="img/right.png"/>
+
+        <div>
+            <span class="name">{{:name}}</span>
+            <span class="tel">{{:tel}}</span>
+        </div>
+        <p class="address">地址：{{:address}}</p>
+    </div>
+    <div class="block select-breakfast">
+        <div class="block-title">
+            <a href="../products.html#config={{:id}}">选择早餐</a>
+            <img class="right" src="img/right.png"/>
+        </div>
+        <ul class="breakfast-list">
+            {{if is_add}}
+            <li>暂未选择</li>
+            {{else}}
+            {{for breakfast_list}}
+            <li>
+                <span class="name">{{:name}}</span>
+                <span class="num">*{{:num}}</span>
+                <span class="price">￥{{:price}}</span>
+            </li>
+            {{/for}}
+            {{/if}}
+        </ul>
+    </div>
+    <div class="block time-info">
+        <ul class="normal-list">
+            <li>
+                <span class="li-title">配送日期</span>
+                <select id="date" class="date">
+                    <option {{if date==1}}selected{{/if}} value="1">明早</option>
+                    <option {{if date==2}}selected{{/if}} value="2">7月28日</option>
+                    <option {{if date==3}}selected{{/if}} value="3">7月29日</option>
+                </select>
+            </li>
+            <li>
+                <span class="li-title">配送时间</span>
+                <select id="time" class="time">
+                    <option {{if time==1}}selected{{/if}} value="1">6:30</option>
+                    <option {{if time==2}}selected{{/if}} value="2">7:00</option>
+                    <option {{if time==3}}selected{{/if}} value="3">7:30</option>
+                    <option {{if time==4}}selected{{/if}} value="4">8:30</option>
+                </select>
+            </li>
+            <li>
+                <span class="li-title">天数</span>
+                {{if is_add}}
+                <select id="day">
+                    <option  value="1">7</option>
+                    <option value="2">14</option>
+                    <option  value="3">30</option>
+                </select>
+                {{else}}
+                <span class="day">{{:day}}</span>
+                {{/if}}
+            </li>
+        </ul>
+    </div>
+    <div class="footer">
+        <button class="ok">
+            确认下单
+        </button>
+        <span class="total-price">￥
+        {{if is_add}}0{{else}}
+        {{:total}}
+        {{/if}}</span>
+        <span class="total">总计</span>
+
+
+        <br>
+    </div>
+</div>
+</script>
+
+<script>
+
+</script>
+
+</body>
+</html>
